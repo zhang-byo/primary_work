@@ -165,10 +165,10 @@ def naive_bayes(test_x, train_x, test_y, train_y):
     clf.fit(train_x, train_y)
     doc_class_predicted = clf.predict(test_x)
     print(doc_class_predicted)
+    precision, recall, thresholds = precision_recall_curve(test_y, clf.predict(test_x))
+    print(f1_score(test_y, clf.predict(test_x)))
+    print(precision, recall)
     return doc_class_predicted
-    # precision, recall, thresholds = precision_recall_curve(test_y, clf.predict(test_x))
-    # print(f1_score([1, 0, 1], clf.predict(test_x)))
-    # print(precision, recall)
 
 def output(predicted, id_list):
     """
@@ -206,8 +206,10 @@ def output(predicted, id_list):
 def main():
     train_x, train_y = read_train()
     test_x, test_y, id_list = read_test()
-    predicted = naive_bayes(test_x, train_x, test_y, train_y)
-    output(predicted, id_list)
+    # predicted = naive_bayes(test_x, train_x, test_y, train_y)
+    predicted = naive_bayes(train_x, train_x, train_y, train_y)
+    print(predicted)
+    # output(predicted, id_list)
 
 if __name__ == '__main__':
     main()
